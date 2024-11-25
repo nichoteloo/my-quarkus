@@ -10,5 +10,5 @@ public class Parameters {
     public @RestQuery("name") String name;
     public @RestHeader("x-access-token") String token;
     public @RestCookie("tenantId") String cTenantId;
-//    public @RestForm("address") String address;
+    public @RestForm("namespace") String namespace;
 }

@@ -3,6 +3,7 @@ package org.mine;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.resteasy.reactive.server.core.multipart.FormData;
 import org.mine.model.Message;
 import org.mine.model.Parameters;
 
@@ -20,18 +21,28 @@ public class GreetingResource {
     }
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postHello(@BeanParam Parameters p, Message message) {
-        if (!Objects.isNull(message)) {
-            return Response.status(Response.Status.OK)
-                    .entity(Map.of(
-                            "response", Map.of(
-                                    "name", p.name,
-                                    "message", message
-                            )
-                    )).type(MediaType.APPLICATION_JSON).build();
+    public Response postHello(Parameters parameters) {
+        if (!Objects.isNull(parameters)) {
+            System.out.println("Greeting Resource: " + parameters.namespace);
         }
-        return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.status(Response.Status.OK).build();
     }
+
+//    @POST
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response postHello(@BeanParam Parameters p, Message message) {
+//        if (!Objects.isNull(message)) {
+//            return Response.status(Response.Status.OK)
+//                    .entity(Map.of(
+//                            "response", Map.of(
+//                                    "name", p.name,
+//                                    "message", message
+//                            )
+//                    )).type(MediaType.APPLICATION_JSON).build();
+//        }
+//        return Response.status(Response.Status.NOT_FOUND).build();
+//    }
 }
