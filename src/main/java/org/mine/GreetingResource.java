@@ -1,5 +1,7 @@
 package org.mine;
 
+import io.vertx.ext.web.RoutingContext;
+import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -13,6 +15,8 @@ import java.util.Objects;
 
 @Path("/hello")
 public class GreetingResource {
+    @Inject
+    RoutingContext routingContext;
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -24,6 +28,7 @@ public class GreetingResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postHello(Parameters parameters) {
+        System.out.println("Print sourceIP: " +  routingContext.request().remoteAddress().host());
         if (!Objects.isNull(parameters)) {
             System.out.println("Greeting Resource: " + parameters.namespace);
         }
